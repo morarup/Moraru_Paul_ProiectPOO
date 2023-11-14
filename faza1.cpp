@@ -566,7 +566,7 @@ int main() {
 	Metrou m3("Metroline", 2024, 5, distantaLinii);
 	m3.afisare(); */
 
-    Parc p1;
+    /*Parc p1;
     cin>>p1;
     cout<<p1;
 
@@ -596,7 +596,59 @@ int main() {
     Metrou m2;
     cin>>m2;
     m2=m1;
-    cout<<m2;
+    cout<<m2; */
 
+    const int numarParcuri = 3;
+    Parc vectorParcuri[numarParcuri];
+
+    const int numarCladiri = 3;
+    Cladire vectorCladiri[numarCladiri];
+
+    const int numarMetrouri = 3;
+    Metrou vectorMetrouri[numarMetrouri];
+
+    for (int i = 0; i < numarParcuri; ++i) {
+        cin >> vectorParcuri[i];
+    }
+
+    for (int i = 0; i < numarCladiri; ++i) {
+        cin >> vectorCladiri[i];
+    }
+
+    for (int i = 0; i < numarMetrouri; ++i) {
+        cin >> vectorMetrouri[i];
+    }
+
+    cout << "Vectorul de parcuri:" << endl;
+    for (int i = 0; i < numarParcuri; ++i) {
+        cout << vectorParcuri[i] << endl;
+    }
+
+    cout << "Vectorul de cladiri:" << endl;
+    for (int i = 0; i < numarCladiri; ++i) {
+        cout << vectorCladiri[i] << endl;
+    }
+
+    cout << "Vectorul de metrouri:" << endl;
+    for (int i = 0; i < numarMetrouri; ++i) {
+        cout << vectorMetrouri[i] << endl;
+    }
+
+    const int numarLiniiMatrice = 2;
+    const int numarColoaneMatrice = 2;
+    Parc matriceParcuri[numarLiniiMatrice][numarColoaneMatrice];
+
+    for (int i = 0; i < numarLiniiMatrice; ++i) {
+        for (int j = 0; j < numarColoaneMatrice; ++j) {
+            cin >> matriceParcuri[i][j];
+        }
+    }
+
+    cout << "Matricea de parcuri:" << endl;
+    for (int i = 0; i < numarLiniiMatrice; ++i) {
+        for (int j = 0; j < numarColoaneMatrice; ++j) {
+            cout << matriceParcuri[i][j] << endl;
+        }
+    }
     return 0;
 }
