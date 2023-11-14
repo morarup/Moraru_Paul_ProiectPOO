@@ -100,7 +100,69 @@ public:
         }
     }
 
-	void afisare()
+    Parc& operator=(const Parc& p) {
+        if (this != &p) {
+            this->nume = p.nume;
+            this->suprafata = p.suprafata;
+            this->numarStalpiIluminat = p.numarStalpiIluminat;
+            if (this->curentConsumat != NULL) {
+                delete[]this->curentConsumat;
+            }
+
+            this->curentConsumat = new float[this->numarStalpiIluminat];
+            for (int i = 0; i < this->numarStalpiIluminat; i++)
+            {
+                this->curentConsumat[i] = p.curentConsumat[i];
+            }
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const Parc& p) {
+        cout << "Nume: " << p.nume << "\nSuprafata: " << p.suprafata << "\nAn infiintare: " << p.anInfiintare << "\nCapacitate parc: " << p.capacitateMaxima << "\nNumar stalpi iluminat: " << p.numarStalpiIluminat << "\nCurent consumat: ";
+        for (int i = 0; i < p.numarStalpiIluminat - 1; i++) {
+            cout << p.curentConsumat[i] << ", ";
+        }
+
+        cout << p.curentConsumat[p.numarStalpiIluminat - 1] << endl;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, Parc& p) {
+        cout << "Nume:"; in >> p.nume;
+        cout << "Suprafata:"; in >> p.suprafata;
+        cout << "Capacitate parc:"; in >> p.capacitateMaxima;
+        cout << "Numar stalpi iluminat:"; in >> p.numarStalpiIluminat;
+        if (p.curentConsumat) {
+            delete[]p.curentConsumat;
+        }
+        p.curentConsumat = new float[p.numarStalpiIluminat];
+        cout << "Curent consumat: ";
+        for (int i = 0; i < p.numarStalpiIluminat; i++) {
+            in >> p.curentConsumat[i];
+        }
+        return in;
+    }
+
+    bool operator ==(int capacitateParc)
+    {
+        if (this->capacitateMaxima == capacitateParc)
+        {
+            cout<<"Este egal";
+        }
+        else
+        {
+            cout<<"Este diferit";
+        }
+    }
+
+    Parc& operator++()
+    {
+        this->numarStalpiIluminat++;
+        return *this;
+    }
+
+    void afisare()
 	{
 		cout << "Nume: " << this->nume << "\nSuprafata: " << this->suprafata << "\nAn infiintare: " << this->anInfiintare << "\nCapacitate parc: " << this->capacitateMaxima << "\nNumar stalpi iluminat: " << this->numarStalpiIluminat << "\nCurent consumat: ";
 		for (int i = 0; i < this->numarStalpiIluminat ; i++) {
@@ -201,7 +263,66 @@ public:
         }
     }
 
-	void afisare()
+    Cladire& operator=(const Cladire& c) {
+        if (this != &c) {
+            this->nume = c.nume;
+            this->numarCamere=c.numarCamere;
+            if (this->suprafataCamere != NULL) {
+                delete[]this->suprafataCamere;
+            }
+
+            this->suprafataCamere = new float[this->numarCamere];
+            for (int i = 0; i < this->numarCamere; i++)
+            {
+                this->suprafataCamere[i] = c.suprafataCamere[i];
+            }
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const Cladire& c) {
+        cout << "Nume: " << c.nume <<"\nAn constructie: " << c.anConstructie << "\nNumar etaje: " << c.numarEtaje << "\nNumar camere: " << c.numarCamere << "\nSuprafata camera: ";
+        for (int i = 0; i < c.numarCamere - 1; i++) {
+            cout << c.suprafataCamere[i] << ", ";
+        }
+
+        cout << c.suprafataCamere[c.numarCamere - 1] << endl;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, Cladire& c) {
+        cout << "Nume:"; in >> c.nume;
+        cout << "Numar camere:"; in >> c.numarCamere;
+        if (c.suprafataCamere) {
+            delete[]c.suprafataCamere;
+        }
+        c.suprafataCamere = new float[c.numarCamere];
+        cout << "Suprafata camere: ";
+        for (int i = 0; i < c.numarCamere; i++) {
+            in >> c.suprafataCamere[i];
+        }
+        return in;
+    }
+
+    bool operator ==(int numarCamere)
+    {
+        if (this->numarCamere == numarCamere)
+        {
+            cout<<"Este egal";
+        }
+        else
+        {
+            cout<<"Este diferit";
+        }
+    }
+
+    Cladire& operator++()
+    {
+        this->numarCamere++;
+        return *this;
+    }
+
+    void afisare()
 	{
 		cout << "Nume: " << this->nume <<"\nAn constructie: " << this->anConstructie << "\nNumar etaje: " << this->numarEtaje << "\nNumar camere: " << this->numarCamere << "\nSuprafata camera: ";
 		for (int i = 0; i < this->numarCamere; i++) {
@@ -303,7 +424,66 @@ public:
         }
     }
 
-	void afisare()
+    Metrou& operator=(const Metrou& m) {
+        if (this != &m) {
+            this->nume = m.nume;
+            this->numarLinii = m.numarLinii;
+            if (this->distantaLinii != NULL) {
+                delete[]this->distantaLinii;
+            }
+
+            this->distantaLinii = new float[this->numarLinii];
+            for (int i = 0; i < this->numarLinii; i++)
+            {
+                this->distantaLinii[i] = m.distantaLinii[i];
+            }
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const Metrou& m) {
+        cout << "Nume: " << m.nume << "\nAn infiintare: " << m.anInfiintare<< "\nPret bilet: " << m.pretBilet << "\nNumar linii: " << m.numarLinii << "\nDistanta linii: ";
+        for (int i = 0; i < m.numarLinii - 1; i++) {
+            cout << m.distantaLinii[i] << ", ";
+        }
+
+        cout << m.distantaLinii[m.numarLinii - 1] << endl;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, Metrou& m) {
+        cout << "Nume:"; in >> m.nume;
+        cout << "Numar linii:"; in >> m.numarLinii;
+        if (m.distantaLinii) {
+            delete[]m.distantaLinii;
+        }
+        m.distantaLinii = new float[m.numarLinii];
+        cout << "Disanta linii: ";
+        for (int i = 0; i < m.numarLinii; i++) {
+            in >> m.distantaLinii[i];
+        }
+        return in;
+    }
+
+    bool operator ==(int numarLinii)
+    {
+        if (this->numarLinii == numarLinii)
+        {
+            cout<<"Este egal";
+        }
+        else
+        {
+            cout<<"Este diferit";
+        }
+    }
+
+    Metrou& operator++()
+    {
+        this->numarLinii++;
+        return *this;
+    }
+
+    void afisare()
 	{
 		cout << "Nume: " << this->nume << "\nAn infiintare: " << this->anInfiintare << "\nPret bilet: " << this->pretBilet << "\nNumar linii: " << this->numarLinii << "\nDistanta linii: ";
 		for (int i = 0; i < this->numarLinii; i++) {
@@ -322,10 +502,10 @@ public:
 int Metrou::pretBilet = 3;
 
 int main() {
-	Parc p1;
+	/*Parc p1;
 	p1.afisare(); cout << endl;
 	
-	/*Parc p2("Herastrau");
+	Parc p2("Herastrau");
 	p2.afisare(); cout << endl;
 
 	float* curentConsumat = new float[11];
@@ -333,7 +513,7 @@ int main() {
 		curentConsumat[i] = (i * i) * i;
 	}
 	Parc p3("Floreasca", 2801.3, 2008, 11, curentConsumat);
-	p3.afisare(); cout << endl; */
+	p3.afisare(); cout << endl;
 
     cout<<"Afisare nume parc: "<<p1.getNume()<<endl;
     cout<<"Afisare suprafata: "<<p1.getSuprafata()<<endl;
@@ -352,7 +532,7 @@ int main() {
     cout<<"Afisare numar camere: "<<c1.getNumarCamere()<<endl;
     for ( int i=0; i<c1.getNumarCamere();i++)
         cout<<"Suprafata: "<<c1.getSuprafataCamere()[i]<<endl;
-	/*Cladire c2(3);
+	Cladire c2(3);
 	c2.afisare(); cout << endl;
 
 	float* suprafataCamere = new float[11];
@@ -361,7 +541,7 @@ int main() {
 	}
 
 	Cladire c3("Ateneu", 1970, 7, suprafataCamere);
-	c3.afisare(); cout << endl; */
+	c3.afisare(); cout << endl;
 
     cout<<endl;
 
@@ -375,7 +555,7 @@ int main() {
     for ( int i=0; i<m1.getNumarLinii();i++)
         cout<<"Distanta linii: "<<m1.getDistantaLinii()[i]<<endl;
     cout<<endl;
-	/*Metrou m2("Metromania");
+	Metrou m2("Metromania");
 	m2.afisare(); cout << endl;
 
 	float* distantaLinii = new float[11];
@@ -385,6 +565,38 @@ int main() {
 
 	Metrou m3("Metroline", 2024, 5, distantaLinii);
 	m3.afisare(); */
+
+    Parc p1;
+    cin>>p1;
+    cout<<p1;
+
+    Parc p2;
+    cin>>p2;
+    cout<<p2;
+
+    p1=p2;
+    p1.operator++();
+    cout<<p1;
+
+    Cladire c1;
+    cin>>c1;
+    c1.operator++();
+    cout<<c1;
+
+    Cladire c2;
+    cin>>c2;
+    c2=c1;
+    cout<<c2;
+
+    Metrou m1;
+    cin>>m1;
+    m1.operator++();
+    cout<<m1;
+
+    Metrou m2;
+    cin>>m2;
+    m2=m1;
+    cout<<m2;
 
     return 0;
 }
