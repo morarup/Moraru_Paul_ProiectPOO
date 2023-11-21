@@ -131,7 +131,6 @@ public:
     friend istream& operator>>(istream& in, Parc& p) {
         cout << "Nume:"; in >> p.nume;
         cout << "Suprafata:"; in >> p.suprafata;
-        cout << "Capacitate parc:"; in >> p.capacitateMaxima;
         cout << "Numar stalpi iluminat:"; in >> p.numarStalpiIluminat;
         if (p.curentConsumat) {
             delete[]p.curentConsumat;
@@ -501,6 +500,75 @@ public:
 };
 int Metrou::pretBilet = 3;
 
+class TransportInComun{
+private:
+    string numeTransport;
+    int capacitate;
+    Metrou metrou;
+public:
+    TransportInComun()
+    {
+        this->numeTransport = "Metrou";
+        this->capacitate = 250;
+        this->metrou=Metrou();
+    }
+
+    TransportInComun(string numeTransport, int capacitate, Metrou metrou){
+        this->numeTransport=numeTransport;
+        this->capacitate=capacitate;
+        this->metrou=metrou;
+    }
+
+    ~TransportInComun() {
+
+    }
+
+    string getNumeTransport(){
+        return this->numeTransport;
+    }
+
+    int getCapacitate(){
+        return this->capacitate;
+    }
+
+    Metrou getMetrou(){
+        return this->metrou;
+    }
+
+    void setNumeTransport(string numeTransportNou){
+        this->numeTransport=numeTransportNou;
+    }
+
+    void setCapacitate(int capacitateNoua){
+        this->capacitate=capacitateNoua;
+    }
+
+    void setMetrou(Metrou metrou){
+        this->metrou=metrou;
+    }
+
+    TransportInComun& operator=(const TransportInComun& tic) {
+        if (this != &tic) {
+            this->numeTransport = tic.numeTransport;
+            this->capacitate = tic.capacitate;
+            this->metrou=tic.metrou;
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const TransportInComun& tic) {
+        cout << "Nume transport: " << tic.numeTransport << "\nCapacitate maxima: " << tic.capacitate<< "\nMetrou: " <<endl<< tic.metrou;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, TransportInComun& tic) {
+        cout << "Nume transport:"; in >> tic.numeTransport;
+        cout << "Capacitate maxima:"; in >> tic.capacitate;
+        cout << "Metrou:"; in >> tic.metrou;
+        return in;
+    }
+};
+
 int main() {
 	/*Parc p1;
 	p1.afisare(); cout << endl;
@@ -598,7 +666,7 @@ int main() {
     m2=m1;
     cout<<m2; */
 
-    const int numarParcuri = 3;
+    /*const int numarParcuri = 3;
     Parc vectorParcuri[numarParcuri];
 
     const int numarCladiri = 3;
@@ -650,5 +718,10 @@ int main() {
             cout << matriceParcuri[i][j] << endl;
         }
     }
+    return 0;*/
+
+    TransportInComun tic1;
+    cout<<tic1;
+
     return 0;
 }
