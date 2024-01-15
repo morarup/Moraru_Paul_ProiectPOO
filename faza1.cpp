@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -119,12 +120,21 @@ public:
     }
 
     friend ostream& operator<<(ostream& consola, const Parc& p) {
-        cout << "Nume: " << p.nume << "\nSuprafata: " << p.suprafata << "\nAn infiintare: " << p.anInfiintare << "\nCapacitate parc: " << p.capacitateMaxima << "\nNumar stalpi iluminat: " << p.numarStalpiIluminat << "\nCurent consumat: ";
+        consola << "Nume: " << p.nume << "\nSuprafata: " << p.suprafata << "\nAn infiintare: " << p.anInfiintare << "\nCapacitate parc: " << p.capacitateMaxima << "\nNumar stalpi iluminat: " << p.numarStalpiIluminat << "\nCurent consumat: ";
         for (int i = 0; i < p.numarStalpiIluminat - 1; i++) {
-            cout << p.curentConsumat[i] << ", ";
+            consola << p.curentConsumat[i] << ", ";
         }
 
-        cout << p.curentConsumat[p.numarStalpiIluminat - 1] << endl;
+        consola << p.curentConsumat[p.numarStalpiIluminat - 1] << endl;
+        return consola;
+    }
+
+    friend ofstream& operator<<(ofstream& consola, const Parc& p) {
+        consola << p.nume << "\n" << p.suprafata << "\n" << p.anInfiintare << "\n" << p.capacitateMaxima << "\n" << p.numarStalpiIluminat << "\n";
+        for (int i = 0; i < p.numarStalpiIluminat - 1; i++) {
+            consola << p.curentConsumat[i] << " ";
+        }
+        consola << p.curentConsumat[p.numarStalpiIluminat - 1] << endl;
         return consola;
     }
 
@@ -137,6 +147,24 @@ public:
         }
         p.curentConsumat = new float[p.numarStalpiIluminat];
         cout << "Curent consumat: ";
+        for (int i = 0; i < p.numarStalpiIluminat; i++) {
+            in >> p.curentConsumat[i];
+        }
+        return in;
+    }
+
+    friend ifstream& operator>>(ifstream& in, Parc& p) {
+        in >> p.nume;
+        in >> p.suprafata;
+        float val = 0;
+        in >> val;
+        in >> val;
+
+        in >> p.numarStalpiIluminat;
+        if (p.curentConsumat) {
+            delete[]p.curentConsumat;
+        }
+        p.curentConsumat = new float[p.numarStalpiIluminat];
         for (int i = 0; i < p.numarStalpiIluminat; i++) {
             in >> p.curentConsumat[i];
         }
@@ -450,6 +478,15 @@ public:
         return consola;
     }
 
+    friend ofstream& operator<<(ofstream& consola, const Metrou& p) {
+        consola << p.nume << "\n" << p.anInfiintare << "\n" << p.pretBilet << "\n" << p.numarLinii << "\n";
+        for (int i = 0; i < p.numarLinii - 1; i++) {
+            consola << p.distantaLinii[i] << " ";
+        }
+        consola << p.distantaLinii[p.numarLinii - 1] << endl;
+        return consola;
+    }
+
     friend istream& operator>>(istream& in, Metrou& m) {
         cout << "Nume:"; in >> m.nume;
         cout << "Numar linii:"; in >> m.numarLinii;
@@ -460,6 +497,24 @@ public:
         cout << "Disanta linii: ";
         for (int i = 0; i < m.numarLinii; i++) {
             in >> m.distantaLinii[i];
+        }
+        return in;
+    }
+
+    friend ifstream& operator>>(ifstream& in, Metrou& p) {
+        in >> p.nume;
+
+        float val = 0;
+        in >> val;
+        in >> val;
+
+        in >> p.numarLinii;
+        if (p.distantaLinii) {
+            delete[]p.distantaLinii;
+        }
+        p.distantaLinii = new float[p.numarLinii];
+        for (int i = 0; i < p.numarLinii; i++) {
+            in >> p.distantaLinii[i];
         }
         return in;
     }
@@ -720,8 +775,26 @@ int main() {
     }
     return 0;*/
 
-    TransportInComun tic1;
-    cout<<tic1;
+    //TransportInComun tic1;
+    //cout<<tic1;
+
+    Parc p1;
+    ofstream fisier("fisier.txt",ios::out);
+    fisier<<p1;
+
+    ifstream citeste("fisier.txt",ios::in);
+    Parc p2; citeste>>p2;
+    cout<<p2;
+
+    cout<<endl;
+
+    Metrou m1;
+    ofstream fisierMetrou("fisierMetrou.txt",ios::out);
+    fisierMetrou<<m1;
+
+    ifstream citesteMetrou("fisierMetrou.txt",ios::in);
+    Metrou m2; citesteMetrou>>m2;
+    cout<<m2;
 
     return 0;
 }
