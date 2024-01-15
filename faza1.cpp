@@ -207,6 +207,55 @@ public:
 };
 int Parc::capacitateMaxima = 1000;
 
+class ParcDeDistractii: public Parc{
+private:
+    int numarAtractii;
+public:
+    ParcDeDistractii():Parc() {
+     this->numarAtractii = 5;
+    }
+
+    ParcDeDistractii(int numarAtractii): Parc(){
+        this->numarAtractii = numarAtractii;
+    }
+
+    ParcDeDistractii(string nume, float suprafata, const int anInfiintare, int numarStalpiIluminat, float* curentConsumat, int numarAtractii):
+        Parc(nume,suprafata,anInfiintare,numarStalpiIluminat,curentConsumat){
+        this->numarAtractii = numarAtractii;
+    }
+
+    int getNumarAtractii() {
+        return this->numarAtractii;
+    }
+
+    void setNumarAtractii(int numarAtractiiNou) {
+        this->numarAtractii = numarAtractiiNou;
+    }
+
+    ParcDeDistractii& operator=(const ParcDeDistractii& pdd) {
+        if (this != &pdd) {
+            Parc::operator=(pdd);
+            this->numarAtractii = pdd.numarAtractii;
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const ParcDeDistractii& pdd) {
+        cout<<(Parc)pdd;
+        cout << "Numar atractii: " << pdd.numarAtractii<<endl;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, ParcDeDistractii& pdd) {
+        cout << "Numar atractii:"; in >> pdd.numarAtractii;
+        return in;
+    }
+
+    ~ParcDeDistractii() {
+
+    }
+};
+
 class Cladire {
 private:
 	string nume;
@@ -555,6 +604,55 @@ public:
 };
 int Metrou::pretBilet = 3;
 
+class StatieDeMetrou: public Metrou{
+private:
+    int numarIntrari;
+public:
+    StatieDeMetrou():Metrou() {
+        this->numarIntrari = 5;
+    }
+
+    StatieDeMetrou(int numarIntrari): Metrou(){
+        this->numarIntrari = numarIntrari;
+    }
+
+    StatieDeMetrou(string nume, const int anInfiintare, int numarLinii, float* distantaLinii, int numarIntrari):
+            Metrou(nume, anInfiintare, numarLinii, distantaLinii){
+        this->numarIntrari = numarIntrari;
+    }
+
+    int getNumarIntrari() {
+        return this->numarIntrari;
+    }
+
+    void setNumarIntrari(int numarIntrariNou) {
+        this->numarIntrari = numarIntrariNou;
+    }
+
+    StatieDeMetrou& operator=(const StatieDeMetrou& sdm) {
+        if (this != &sdm) {
+            Metrou::operator=(sdm);
+            this->numarIntrari = sdm.numarIntrari;
+        }
+        return *this;
+    }
+
+    friend ostream& operator<<(ostream& consola, const StatieDeMetrou& sdm) {
+        cout<<(Metrou &) sdm;
+        cout << "Numar intrari: " << sdm.numarIntrari<<endl;
+        return consola;
+    }
+
+    friend istream& operator>>(istream& in, StatieDeMetrou& sdm) {
+        cout << "Numar intrari:"; in >> sdm.numarIntrari;
+        return in;
+    }
+
+    ~StatieDeMetrou() {
+
+    }
+};
+
 class TransportInComun{
 private:
     string numeTransport;
@@ -778,7 +876,7 @@ int main() {
     //TransportInComun tic1;
     //cout<<tic1;
 
-    Parc p1;
+    /*Parc p1;
     ofstream fisier("fisier.txt",ios::out);
     fisier<<p1;
 
@@ -795,6 +893,39 @@ int main() {
     ifstream citesteMetrou("fisierMetrou.txt",ios::in);
     Metrou m2; citesteMetrou>>m2;
     cout<<m2;
+    */
+
+    ParcDeDistractii pd1;
+    cout<<pd1<<endl;
+
+    ParcDeDistractii pd2(2);
+    cout<<pd2<<endl;
+
+    float* curentConsumat = new float[6];
+    for (int i = 0; i < 6; i++) {
+        curentConsumat[i] = (i * i) * i;
+    }
+    ParcDeDistractii pd3("Herastrau",5300,1990,6,curentConsumat,10);
+    cout<<pd3<<endl;
+
+    pd3=pd1;
+    cout<<pd3<<endl;
+
+    StatieDeMetrou sdm1;
+    cout<<sdm1<<endl;
+
+    StatieDeMetrou sdm2(3);
+    cout<<sdm2<<endl;
+
+    float* distantaLinii = new float[3];
+    for (int i = 0; i < 3; i++) {
+        distantaLinii[i] = (10 * i) + i;
+    }
+    StatieDeMetrou sdm3("Universitate", 2001, 5, distantaLinii, 2);
+    cout<<sdm3<<endl;
+
+    sdm3=sdm1;
+    cout<<sdm1<<endl;
 
     return 0;
 }
